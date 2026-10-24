@@ -1,0 +1,68 @@
+{
+  "champion_model": "Logistic Regression",
+  "metrics": {
+    "accuracy": 0.868,
+    "f1_score": 0.8708,
+    "precision": 0.8525,
+    "recall": 0.89,
+    "roc_auc": 0.9482
+  },
+  "all_models": [
+    {
+      "Model": "Logistic Regression",
+      "Accuracy": 0.868,
+      "Precision": 0.8525,
+      "Recall": 0.89,
+      "F1-Score": 0.8708,
+      "ROC-AUC": 0.9482,
+      "Train Time (s)": 0.117,
+      "Inference Latency (ms)": 0.0
+    },
+    {
+      "Model": "Linear SVC (Calibrated)",
+      "Accuracy": 0.868,
+      "Precision": 0.858,
+      "Recall": 0.882,
+      "F1-Score": 0.8698,
+      "ROC-AUC": 0.9475,
+      "Train Time (s)": 0.212,
+      "Inference Latency (ms)": 0.0062
+    },
+    {
+      "Model": "Multinomial Naive Bayes",
+      "Accuracy": 0.87,
+      "Precision": 0.8715,
+      "Recall": 0.868,
+      "F1-Score": 0.8697,
+      "ROC-AUC": 0.9448,
+      "Train Time (s)": 0.013,
+      "Inference Latency (ms)": 0.001
+    },
+    {
+      "Model": "Complement Naive Bayes",
+      "Accuracy": 0.87,
+      "Precision": 0.8715,
+      "Recall": 0.868,
+      "F1-Score": 0.8697,
+      "ROC-AUC": 0.9448,
+      "Train Time (s)": 0.012,
+      "Inference Latency (ms)": 0.001
+    },
+    {
+      "Model": "Random Forest",
+      "Accuracy": 0.82,
+      "Precision": 0.8113,
+      "Recall": 0.834,
+      "F1-Score": 0.8225,
+      "ROC-AUC": 0.908,
+      "Train Time (s)": 2.252,
+      "Inference Latency (ms)": 0.0648
+    }
+  ],
+  "vocab_size": 10000,
+  "classes": [
+    "Negative",
+    "Positive"
+  ],
+  "dataset": "IMDb Movie Reviews (5,000 balanced benchmark)"
+}
