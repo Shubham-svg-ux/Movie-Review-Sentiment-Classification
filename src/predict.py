@@ -129,11 +129,26 @@ class SentimentPredictor:
         X_tfidf = self.vectorizer.transform([cleaned])
         pred_label = int(self.model.predict(X_tfidf)[0])
 
+        prob_pos = None
+        prob_neg = None
+
         if hasattr(self.model, "predict_proba"):
-            probs = self.model.predict_proba(X_tfidf)[0]
-            prob_neg = float(probs[0])
-            prob_pos = float(probs[1])
-        else:
+            try:
+                probs = self.model.predict_proba(X_tfidf)[0]
+                prob_neg = float(probs[0])
+                prob_pos = float(probs[1])
+            except Exception:
+                pass
+
+        if prob_pos is None and hasattr(self.model, "decision_function"):
+            try:
+                score = float(self.model.decision_function(X_tfidf)[0])
+                prob_pos = float(1.0 / (1.0 + np.exp(-score)))
+                prob_neg = 1.0 - prob_pos
+            except Exception:
+                pass
+
+        if prob_pos is None:
             prob_pos = float(pred_label)
             prob_neg = 1.0 - prob_pos
 
@@ -158,9 +173,22 @@ class SentimentPredictor:
         X_tfidf = self.vectorizer.transform(cleaned_list)
         preds = self.model.predict(X_tfidf)
 
+        probs = None
         if hasattr(self.model, "predict_proba"):
-            probs = self.model.predict_proba(X_tfidf)
-        else:
+            try:
+                probs = self.model.predict_proba(X_tfidf)
+            except Exception:
+                pass
+
+        if probs is None and hasattr(self.model, "decision_function"):
+            try:
+                scores = self.model.decision_function(X_tfidf)
+                pos_probs = 1.0 / (1.0 + np.exp(-scores))
+                probs = np.column_stack([1.0 - pos_probs, pos_probs])
+            except Exception:
+                pass
+
+        if probs is None:
             probs = [[1.0 - p, p] for p in preds]
 
         results = []

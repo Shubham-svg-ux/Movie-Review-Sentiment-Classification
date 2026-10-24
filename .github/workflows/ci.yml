@@ -27,6 +27,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Train and Benchmark Models
+      run: |
+        python src/train.py
+        python src/evaluate.py
+
     - name: Run Test Suite
       run: |
         python -m unittest discover tests -v
